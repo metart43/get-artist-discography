@@ -1,11 +1,12 @@
 const axios = require("axios");
+const fs = require("fs");
 
 const getSongs = async () => {
   try {
     console.log("fetch albums");
     const response = await axios({
       url:
-        "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=20",
+        "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=35",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -14,7 +15,10 @@ const getSongs = async () => {
       },
     });
     const { items } = response.data;
-    console.log(items);
+    const radioheadAlbums = new Map(
+      items.map((album) => [album.id, album.name])
+    );
+    console.log(Object.fromEntries(radioheadAlbums));
   } catch (e) {
     console.log(e);
   }

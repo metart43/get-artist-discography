@@ -18,23 +18,24 @@ const getSongs = async () => {
     const radioheadAlbums = Object.fromEntries(
       new Map(items.map((album) => [album.name, { id: album.id, songs: [] }]))
     );
-    Object.entries(radioheadAlbums)[0].map(async ([key, value]) => {
+    Object.entries(radioheadAlbums).map(async ([key, value]) => {
       try {
-        console.log(value);
-        // const fetchedSongs = await axios({
-        //   url: `https://api.spotify.com/v1/albums/${value.id}/tracks`,
-        //   method: "GET",
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //     Authorization:
-        //       "Bearer BQC3OcWrVc70k_TXlNCT6saF2aN3mQP2aDnOF3pTXwQGDA68qz9baeXFpUAXXeu7O696wxy0BH98FGSxDntrEtF1e4b9Zx-RbuJrbW5k8sksXaZgQ4kl36WL5fo3pYAQ54KGujxPqRCtceCRx8u_bdRB5sCF-gtNIy2nDnDLAS3Q4mhnhl-c-n4MuhbSfT1HZy5VatE3P5alh-RVCaSONS5sJQDf8tZPsvc7mwPp4tadnazPvWHOUXBeKW1rLOp44tfT0RMHudeL",
-        //   },
-        // });
-        // console.log(fetchedSongs);
+        const fetchedSongs = await axios({
+          url: `https://api.spotify.com/v1/albums/${value.id}/tracks`,
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer BQC3OcWrVc70k_TXlNCT6saF2aN3mQP2aDnOF3pTXwQGDA68qz9baeXFpUAXXeu7O696wxy0BH98FGSxDntrEtF1e4b9Zx-RbuJrbW5k8sksXaZgQ4kl36WL5fo3pYAQ54KGujxPqRCtceCRx8u_bdRB5sCF-gtNIy2nDnDLAS3Q4mhnhl-c-n4MuhbSfT1HZy5VatE3P5alh-RVCaSONS5sJQDf8tZPsvc7mwPp4tadnazPvWHOUXBeKW1rLOp44tfT0RMHudeL",
+          },
+        });
+        const { items } = fetchedSongs.data;
+        value.songs = items.map((song) => song.name);
       } catch (e) {
         console.log(e);
       }
     });
+    console.log(radioheadAlbums);
   } catch (e) {
     console.log(e);
   }

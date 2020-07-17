@@ -3,30 +3,30 @@ const fs = require("fs");
 
 const getSongs = async () => {
   try {
-    console.log("fetch albums");
-    const response = await axios({
-      url:
-        "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=35",
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization:
-          "Bearer BQDSGr7WYv-6J7hKVhLWll4SsQKqmAitbmpMLd-YHg09UPUNwr3vpdCjR-WpPGZ_j2-_kEyrBbASMAKQG1V0gZf-R8IEzXJMV00ROh3tMtHZapXUT04FXiNI_hFlM-EKWkfWlWCz5J50K26PvneUQBY6uVZ6PzesAWuFoyKCqsl5WNXwkwHRGX4k7bgayUFMkUe1lKsjLiNSRRXZLivFS5ku-zAzn5f5IZMNqAU-yHLJPntCWFJRhqACr645B-HrJRwu8sGnP22E",
-      },
-    });
-    const { items } = response.data;
-    const radioheadAlbums = JSON.stringify(
-      Object.fromEntries(
-        new Map(items.map((album) => [album.name, { id: album.id, songs: [] }]))
-      )
-    );
-    console.log(radioheadAlbums);
-    fs.writeFile("./readiohead-albums-data.json", radioheadAlbums, (err) => {
-      if (err) throw err;
-      console.log("saved?");
-    });
-    console.log("This is after the write call");
-  } catch (e) {
+        console.log("fetch albums");
+        const response = await axios({
+          url:
+            "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=35",
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization:
+              "Bearer BQDSGr7WYv-6J7hKVhLWll4SsQKqmAitbmpMLd-YHg09UPUNwr3vpdCjR-WpPGZ_j2-_kEyrBbASMAKQG1V0gZf-R8IEzXJMV00ROh3tMtHZapXUT04FXiNI_hFlM-EKWkfWlWCz5J50K26PvneUQBY6uVZ6PzesAWuFoyKCqsl5WNXwkwHRGX4k7bgayUFMkUe1lKsjLiNSRRXZLivFS5ku-zAzn5f5IZMNqAU-yHLJPntCWFJRhqACr645B-HrJRwu8sGnP22E",
+          },
+        });
+        const { items } = response.data;
+        // const radioheadAlbums = JSON.stringify(
+        //   Object.fromEntries(
+        //     new Map(items.map((album) => [album.name, { id: album.id, songs: [] }]))
+        //   )
+        // );
+        const radioheadAlbums = JSON.stringify(
+         
+            items.map((album) => [album.name, { id: album.id, songs: [] }]))
+          
+        );
+        radioheadAlbums.map();
+      } catch (e) {
     console.log(e);
   }
 };

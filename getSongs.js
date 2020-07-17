@@ -3,30 +3,39 @@ const fs = require("fs");
 
 const getSongs = async () => {
   try {
-        console.log("fetch albums");
-        const response = await axios({
-          url:
-            "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=35",
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization:
-              "Bearer BQDSGr7WYv-6J7hKVhLWll4SsQKqmAitbmpMLd-YHg09UPUNwr3vpdCjR-WpPGZ_j2-_kEyrBbASMAKQG1V0gZf-R8IEzXJMV00ROh3tMtHZapXUT04FXiNI_hFlM-EKWkfWlWCz5J50K26PvneUQBY6uVZ6PzesAWuFoyKCqsl5WNXwkwHRGX4k7bgayUFMkUe1lKsjLiNSRRXZLivFS5ku-zAzn5f5IZMNqAU-yHLJPntCWFJRhqACr645B-HrJRwu8sGnP22E",
-          },
-        });
-        const { items } = response.data;
-        // const radioheadAlbums = JSON.stringify(
-        //   Object.fromEntries(
-        //     new Map(items.map((album) => [album.name, { id: album.id, songs: [] }]))
-        //   )
-        // );
-        const radioheadAlbums = JSON.stringify(
-         
-            items.map((album) => [album.name, { id: album.id, songs: [] }]))
-          
-        );
-        radioheadAlbums.map();
+    console.log("fetch albums");
+    const response = await axios({
+      url:
+        "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=35",
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization:
+          "Bearer BQC3OcWrVc70k_TXlNCT6saF2aN3mQP2aDnOF3pTXwQGDA68qz9baeXFpUAXXeu7O696wxy0BH98FGSxDntrEtF1e4b9Zx-RbuJrbW5k8sksXaZgQ4kl36WL5fo3pYAQ54KGujxPqRCtceCRx8u_bdRB5sCF-gtNIy2nDnDLAS3Q4mhnhl-c-n4MuhbSfT1HZy5VatE3P5alh-RVCaSONS5sJQDf8tZPsvc7mwPp4tadnazPvWHOUXBeKW1rLOp44tfT0RMHudeL",
+      },
+    });
+    const { items } = response.data;
+    const radioheadAlbums = Object.fromEntries(
+      new Map(items.map((album) => [album.name, { id: album.id, songs: [] }]))
+    );
+    Object.entries(radioheadAlbums)[0].map(async ([key, value]) => {
+      try {
+        console.log(value);
+        // const fetchedSongs = await axios({
+        //   url: `https://api.spotify.com/v1/albums/${value.id}/tracks`,
+        //   method: "GET",
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     Authorization:
+        //       "Bearer BQC3OcWrVc70k_TXlNCT6saF2aN3mQP2aDnOF3pTXwQGDA68qz9baeXFpUAXXeu7O696wxy0BH98FGSxDntrEtF1e4b9Zx-RbuJrbW5k8sksXaZgQ4kl36WL5fo3pYAQ54KGujxPqRCtceCRx8u_bdRB5sCF-gtNIy2nDnDLAS3Q4mhnhl-c-n4MuhbSfT1HZy5VatE3P5alh-RVCaSONS5sJQDf8tZPsvc7mwPp4tadnazPvWHOUXBeKW1rLOp44tfT0RMHudeL",
+        //   },
+        // });
+        // console.log(fetchedSongs);
       } catch (e) {
+        console.log(e);
+      }
+    });
+  } catch (e) {
     console.log(e);
   }
 };

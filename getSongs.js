@@ -3,6 +3,11 @@ const axios = require("axios");
 const getSongs = async () => {
   let songs;
   try {
+    const response = await axios({
+      method: "GET",
+      url: `http://ws.audioscrobbler.com/2.0/?method=artist.getTopAlbums&artist=radiohead&api_key=${process.env.LAST_FM_API_KEY}&format=json`,
+    });
+    console.log(response);
   } catch (e) {}
 };
 
@@ -33,4 +38,4 @@ const getLyrics = async () => {
     return (lyrics = null);
   }
 };
-module.exports = getLyrics;
+module.exports = getSongs;

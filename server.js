@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 const Twitter = require("twitter-lite");
-const getLyrics = require("./getLyrics");
+const getSongs = require("./getSongs");
 
 const client = new Twitter({
   consumer_key: process.env.TWITTER_API_KEY,
@@ -17,8 +17,8 @@ app.get("/", function (request, response) {
 
   (async () => {
     try {
-      const lyrics = await getLyrics();
-      console.log("lyrics", lyrics);
+      const lyrics = await getSongs();
+      // console.log("lyrics", lyrics);
       // await client.post("statuses/update", {
       //   status: "status test",
       // });

@@ -34,10 +34,7 @@ const getSongs = async () => {
                     },
                   });
                   const { items } = fetchedSongs.data;
-                  const songArray = items.map((song) =>
-                    console.log(song.name)
-                  );
-
+                  const songArray = items.map((song) => song.name);
                   return songArray;
                 } catch (e) {
                   console.log(e);
@@ -48,7 +45,9 @@ const getSongs = async () => {
         )
       )
     );
-    console.log(radioheadAlbums);
+    console.log(await radioheadAlbums);
+
+    // return radioheadAlbums;
   } catch (e) {
     console.log(e);
   }

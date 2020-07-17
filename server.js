@@ -18,7 +18,7 @@ app.get("/", function (request, response) {
   (async () => {
     try {
       const lyrics = await getSongs();
-      // console.log("lyrics", lyrics);
+      console.log("lyrics", lyrics);
       // await client.post("statuses/update", {
       //   status: "status test",
       // });

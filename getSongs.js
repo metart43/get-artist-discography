@@ -15,30 +15,40 @@ const getSongs = async () => {
       },
     });
     const { items } = response.data;
-    const radioheadAlbums = Object.fromEntries(
-      new Map(items.map((album) => [album.name, { id: album.id, songs: [] }]))
-    );
-    const finishedDiscography = Object.values(radioheadAlbums).map(
-      async ({ id, songs }) => {
-        try {
-          const fetchedSongs = await axios({
-            url: `https://api.spotify.com/v1/albums/${value.id}/tracks`,
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization:
-                "Bearer BQC3OcWrVc70k_TXlNCT6saF2aN3mQP2aDnOF3pTXwQGDA68qz9baeXFpUAXXeu7O696wxy0BH98FGSxDntrEtF1e4b9Zx-RbuJrbW5k8sksXaZgQ4kl36WL5fo3pYAQ54KGujxPqRCtceCRx8u_bdRB5sCF-gtNIy2nDnDLAS3Q4mhnhl-c-n4MuhbSfT1HZy5VatE3P5alh-RVCaSONS5sJQDf8tZPsvc7mwPp4tadnazPvWHOUXBeKW1rLOp44tfT0RMHudeL",
+    const radioheadAlbums = Object.values(
+      Object.fromEntries(
+        new Map(
+          items.map((album) => [
+            album.name,
+            {
+              id: album.id,
+              songs: (async () => {
+                try {
+                  const fetchedSongs = await axios({
+                    url: `https://api.spotify.com/v1/albums/${album.id}/tracks`,
+                    method: "GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization:
+                        "Bearer BQC3OcWrVc70k_TXlNCT6saF2aN3mQP2aDnOF3pTXwQGDA68qz9baeXFpUAXXeu7O696wxy0BH98FGSxDntrEtF1e4b9Zx-RbuJrbW5k8sksXaZgQ4kl36WL5fo3pYAQ54KGujxPqRCtceCRx8u_bdRB5sCF-gtNIy2nDnDLAS3Q4mhnhl-c-n4MuhbSfT1HZy5VatE3P5alh-RVCaSONS5sJQDf8tZPsvc7mwPp4tadnazPvWHOUXBeKW1rLOp44tfT0RMHudeL",
+                    },
+                  });
+                  const { items } = fetchedSongs.data;
+                  const songArray = items.map((song) =>
+                    console.log(song.name)
+                  );
+
+                  return songArray;
+                } catch (e) {
+                  console.log(e);
+                }
+              })(),
             },
-          });
-          const { items } = fetchedSongs.data;
-          console.log(items);
-          return items.forEach((song) => value.songs.push(song.name));
-        } catch (e) {
-          console.log(e);
-        }
-      }
+          ])
+        )
+      )
     );
-    console.log(finishedDiscography);
+    console.log(radioheadAlbums);
   } catch (e) {
     console.log(e);
   }

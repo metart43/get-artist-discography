@@ -21,7 +21,7 @@ const getLyrics = async () => {
       },
       params: {
         artist: "Radiohead",
-        song: "2+2=5",
+        song: "Karma Police",
       },
     });
     const { success, result } = response.data;

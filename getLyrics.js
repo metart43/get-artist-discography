@@ -16,7 +16,7 @@ const getLyrics = async () => {
       headers: {
         "content-type": "application/octet-stream",
         "x-rapidapi-host": "mourits-lyrics.p.rapidapi.com",
-        "x-rapidapi-key": "4ac642092cmsh6cd5747081ba1aap18d48fjsn8df668db1d93",
+        "x-rapidapi-key": process.env.RAPID_API_KEY,
         useQueryString: true,
       },
       params: {

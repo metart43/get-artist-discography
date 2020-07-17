@@ -1,5 +1,11 @@
 const axios = require("axios");
 
+const getSongs = async () => {
+  let songs;
+  try {
+  } catch (e) {}
+};
+
 const getLyrics = async () => {
   let lyrics;
   try {
@@ -15,11 +21,12 @@ const getLyrics = async () => {
       },
       params: {
         artist: "Radiohead",
-        song: "Karma Police",
+        song: "2+2=5",
       },
     });
     const { success, result } = response.data;
     lyrics = success ? result.lyrics : null;
+    console.log(response);
     return lyrics;
   } catch (e) {
     console.log(e);

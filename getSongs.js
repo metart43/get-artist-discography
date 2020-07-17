@@ -1,11 +1,11 @@
 const axios = require("axios");
 
 const getSongs = async () => {
-  let songs;
   try {
     console.log("fetch albums");
     const response = await axios({
-      url: "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums",
+      url:
+        "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=20",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -13,7 +13,8 @@ const getSongs = async () => {
           "Bearer BQDSGr7WYv-6J7hKVhLWll4SsQKqmAitbmpMLd-YHg09UPUNwr3vpdCjR-WpPGZ_j2-_kEyrBbASMAKQG1V0gZf-R8IEzXJMV00ROh3tMtHZapXUT04FXiNI_hFlM-EKWkfWlWCz5J50K26PvneUQBY6uVZ6PzesAWuFoyKCqsl5WNXwkwHRGX4k7bgayUFMkUe1lKsjLiNSRRXZLivFS5ku-zAzn5f5IZMNqAU-yHLJPntCWFJRhqACr645B-HrJRwu8sGnP22E",
       },
     });
-    console.log(response);
+    const { items } = response.data;
+    console.log(items);
   } catch (e) {
     console.log(e);
   }

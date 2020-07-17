@@ -15,10 +15,17 @@ const getSongs = async () => {
       },
     });
     const { items } = response.data;
-    const radioheadAlbums = new Map(
-      items.map((album) => [album.id, album.name])
+    const radioheadAlbums = JSON.stringify(
+      Object.fromEntries(
+        new Map(items.map((album) => [album.name, { id: album.id, songs: [] }]))
+      )
     );
-    console.log(Object.fromEntries(radioheadAlbums));
+    console.log(radioheadAlbums);
+    fs.writeFile("./readiohead-albums-data.json", radioheadAlbums, (err) => {
+      if (err) throw err;
+      console.log("saved?");
+    });
+    console.log("This is after the write call");
   } catch (e) {
     console.log(e);
   }

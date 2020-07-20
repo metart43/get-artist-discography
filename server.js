@@ -2,7 +2,6 @@ const express = require("express");
 const app = express();
 const getAlbums = require("./getSongs");
 const getToken = require("./getToken");
-const fs = require("fs");
 const dotenv = require("dotenv");
 
 app.use(express.static("public"));
@@ -10,18 +9,15 @@ dotenv.config();
 
 app.get("/", function (request, response) {
   let lyrics;
-  let error;
   (async () => {
     try {
       await getToken();
       lyrics = await getAlbums();
     } catch (e) {
-      console.log(e);
-      error = e.response.data;
+      const { status, statusText } = e.response;
+      lyrics = { [status]: statusText };
     } finally {
-      lyrics
-        ? response.send(JSON.stringify(lyrics))
-        : response.send(JSON.stringify(JSON.stringify(error)));
+      response.send(JSON.stringify(lyrics));
     }
   })();
 });

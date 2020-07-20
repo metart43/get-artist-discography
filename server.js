@@ -3,8 +3,10 @@ const app = express();
 const getAlbums = require("./getSongs");
 const getToken = require("./getToken");
 const fs = require("fs");
+const dotenv = require("dotenv");
 
 app.use(express.static("public"));
+dotenv.config();
 
 app.get("/", function (request, response) {
   (async () => {
@@ -23,6 +25,6 @@ app.get("/", function (request, response) {
   })();
 });
 
-const listener = app.listen(process.env.PORT, function () {
+const listener = app.listen(3000, function () {
   console.log("Your app is listening on port " + listener.address().port);
 });

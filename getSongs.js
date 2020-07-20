@@ -1,25 +1,23 @@
 const axios = require("axios");
 const fs = require("fs");
 
-const matchSongsWithAlbums = async (albums) => {
-  let songs;
-  Object.values(albums).map(({ id, songs }) => {
-    axios({
+const matchSongs = async (id) => {
+  try {
+    const response = await axios({
       url: `https://api.spotify.com/v1/albums/${id}/tracks`,
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
       },
-    }).then((res) => {
-      const { items } = res.data;
-      console.log("songs after then", items);
-      songs = items;
     });
-  });
-  console.log(songs);
+    const { items } = response.data;
 
-  // return matchedObject
+    return items;
+  } catch (e) {
+    console.log(e);
+    return null;
+  }
 };
 
 const getAlbums = async () => {
@@ -33,35 +31,21 @@ const getAlbums = async () => {
         Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
       },
     });
+    console.log(response);
     const { items } = response.data;
-    const radioheadAlbums = Object.fromEntries(
-      new Map(
-        items.map((album) => [
-          album.name,
-          {
-            id: album.id,
-            songs: [],
-          },
-        ])
+    const radioheadAlbums = await Promise.all(
+      Object.fromEntries(
+        new Map(
+          items.map(async (album) => [
+            album.name,
+            {
+              id: album.id,
+              songs: [],
+              // songs: await matchSongs(album.id),
+            },
+          ])
+        )
       )
-    );
-
-    await Promise.all(
-      Object.values(radioheadAlbums).map(({ id, songs }) => {
-        const newArray
-        axios({
-          url: `https://api.spotify.com/v1/albums/${id}/tracks`,
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
-          },
-        }).then((res) => {
-          const { items } = res.data;
-          
-          return items.forEach((song) => songs.push(song));
-        });
-      })
     );
     console.log(radioheadAlbums);
   } catch (e) {

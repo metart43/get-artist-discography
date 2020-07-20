@@ -24,7 +24,6 @@ const matchSongsWithAlbums = async (albums) => {
 
 const getAlbums = async () => {
   try {
-    console.log("fetch albums");
     const response = await axios({
       url:
         "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=2",
@@ -46,9 +45,25 @@ const getAlbums = async () => {
         ])
       )
     );
-    matchSongsWithAlbums(radioheadAlbums);
-    // console.log(radioheadAlbums);
-    // return discography;
+
+    await Promise.all(
+      Object.values(radioheadAlbums).map(({ id, songs }) => {
+        const newArray
+        axios({
+          url: `https://api.spotify.com/v1/albums/${id}/tracks`,
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
+          },
+        }).then((res) => {
+          const { items } = res.data;
+          
+          return items.forEach((song) => songs.push(song));
+        });
+      })
+    );
+    console.log(radioheadAlbums);
   } catch (e) {
     console.log(e);
   }

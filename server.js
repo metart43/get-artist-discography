@@ -9,18 +9,19 @@ app.use(express.static("public"));
 dotenv.config();
 
 app.get("/", function (request, response) {
+  let lyrics;
+  let error;
   (async () => {
     try {
       await getToken();
-      const lyrics = await getAlbums();
-      fs.writeFileSync(
-        __dirname + "/readiohead-albums-data.json",
-        JSON.stringify(lyrics)
-      );
+      lyrics = await getAlbums();
     } catch (e) {
       console.log(e);
+      error = e.response.data;
     } finally {
-      response.sendFile(__dirname + "/readiohead-albums-data.json");
+      lyrics
+        ? response.send(JSON.stringify(lyrics))
+        : response.send(JSON.stringify(JSON.stringify(error)));
     }
   })();
 });

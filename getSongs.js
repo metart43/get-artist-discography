@@ -14,8 +14,8 @@ const matchSongs = async (id) => {
     const names = items.map((song) => song.name);
     return names;
   } catch (e) {
-    console.log(e);
-    return null;
+    const { status, statusText } = e.response;
+    return { [status]: statusText };
   }
 };
 
@@ -42,7 +42,8 @@ const getAlbums = async () => {
     );
     return radioheadAlbums;
   } catch (e) {
-    console.log(e);
+    const { status, statusText } = e.response;
+    return { [status]: statusText };
   }
 };
 

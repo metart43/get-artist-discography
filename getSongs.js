@@ -2,7 +2,11 @@ const axios = require("axios");
 const fs = require("fs");
 
 const getToken = async () => {
-  console.log(process.env.SPOTIFY_CLIENT_SECRET);
+  const encodedSecret = Buffer.from(
+    process.env.SPOTIFY_CLIENT_SECRET,
+    "base64"
+  ).toString("base64");
+  console.log(encodedSecret);
   try {
     const response = await axios({
       url: `https://accounts.spotify.com/api/token`,
@@ -11,7 +15,7 @@ const getToken = async () => {
         grant_type: "client_credentials",
       },
       headers: {
-        Authorization: `BASIC ${process.env.SPOTIFY_CLIENT_SECRET}`,
+        Authorization: `BASIC ${encodedSecret}`,
       },
     });
     console.log(response.data);

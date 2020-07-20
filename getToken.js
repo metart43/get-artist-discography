@@ -2,7 +2,6 @@ const axios = require("axios");
 require("dotenv").config();
 
 const getToken = async () => {
-  console.log("client\n\n\n\n\n", process.env.SPOTIFY_CLIENT_ID);
   const encodedSecret = Buffer.from(
     process.env.SPOTIFY_CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET
   ).toString("base64");

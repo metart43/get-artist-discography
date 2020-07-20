@@ -1,7 +1,6 @@
 dependencies:
   axios: 0.19.2
   express: 4.17.1
-  twitter-lite: 0.14.0
 packages:
   /accepts/1.3.7:
     dependencies:
@@ -69,12 +68,6 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-+Hp8fLp57wnUSt0tY0tHEXh4voZRDnoIrZPqlo3DPiI4y9lwg/jqx+1Om94/W6ZaPDOUbnjOt/99w66zk+l1Xg==
-  /cross-fetch/3.0.5:
-    dependencies:
-      node-fetch: 2.6.0
-    dev: false
-    resolution:
-      integrity: sha512-FFLcLtraisj5eteosnX1gf01qYDCOc4fDy0+euOt8Kn9YBY2NtXL/pCoYPavw24NIQkQqm5ZOLsGD5Zzj0gyew==
   /debug/2.6.9:
     dependencies:
       ms: 2.0.0
@@ -285,16 +278,6 @@ packages:
       node: '>= 0.6'
     resolution:
       integrity: sha512-hZXc7K2e+PgeI1eDBe/10Ard4ekbfrrqG8Ep+8Jmf4JID2bNg7NvCPOZN+kfF574pFQI7mum2AUqDidoKqcTOw==
-  /node-fetch/2.6.0:
-    dev: false
-    engines:
-      node: 4.x || >=6.0.0
-    resolution:
-      integrity: sha512-8dG4H5ujfvFiqDmVu9fQ5bOHUC15JMjMY/Zumv26oOvvVJjM67KF8koCWIabKQ1GJIa9r2mMZscBq/TbdOcmNA==
-  /oauth-1.0a/2.2.6:
-    dev: false
-    resolution:
-      integrity: sha512-6bkxv3N4Gu5lty4viIcIAnq5GbxECviMBeKR3WX/q87SPQ8E8aursPZUtsXDnxCs787af09WPRBLqYrf/lwoYQ==
   /on-finished/2.3.0:
     dependencies:
       ee-first: 1.1.1
@@ -400,13 +383,6 @@ packages:
       node: '>=0.6'
     resolution:
       integrity: sha512-yaOH/Pk/VEhBWWTlhI+qXxDFXlejDGcQipMlyxda9nthulaxLZUNcUqFxokp0vcYnvteJln5FNQDRrxj3YcbVw==
-  /twitter-lite/0.14.0:
-    dependencies:
-      cross-fetch: 3.0.5
-      oauth-1.0a: 2.2.6
-    dev: false
-    resolution:
-      integrity: sha512-AP7jnuEBIMA18fi3IDWT7fTOJVpZrl1ZwJKunGf2iknKv5BH4mpwBvJmu3RP59XHZFL3ckUcGGRw/INVRikBBg==
   /type-is/1.6.18:
     dependencies:
       media-typer: 0.3.0
@@ -440,4 +416,3 @@ shrinkwrapVersion: 3
 specifiers:
   axios: 0.19.2
   express: ^4.17.1
-  twitter-lite: 0.14.0

@@ -4,18 +4,12 @@
   "//3": "updating this file will download and update your packages",
   "name": "bot4radioheead",
   "version": "0.0.1",
-  "description": "A simple Node app built on Express, instantly up and running.",
+  "description": "Radiohead Discoraphyart",
   "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.17.1",
-    "twitter-lite": "0.14.0",
-    "axios": "0.19.2"
-  },
-  "engines": {
-    "node": "12.x"
+  "scripts": {},
+"dependencies": {
+   "twitter-lite": "0.14.0",
+    "axios": "0.1node": "12.x"
   },
   "repository": {
     "url": "https://glitch.com/edit/#!/hello-express"

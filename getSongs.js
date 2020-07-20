@@ -32,9 +32,10 @@ const getAlbums = async () => {
     });
     const { items } = response.data;
     const radioheadAlbums = await Promise.all(
-      items.map(async (album) => ({
+      items.map(async (album, i) => ({
         [album.name]: {
-          id: album.id,
+          id: `${i}`,
+          spotifyId: album.id,
           songs: await matchSongs(album.id),
         },
       }))

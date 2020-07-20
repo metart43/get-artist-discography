@@ -10,8 +10,7 @@ const getSongs = async () => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization:
-          "Bearer BQC3OcWrVc70k_TXlNCT6saF2aN3mQP2aDnOF3pTXwQGDA68qz9baeXFpUAXXeu7O696wxy0BH98FGSxDntrEtF1e4b9Zx-RbuJrbW5k8sksXaZgQ4kl36WL5fo3pYAQ54KGujxPqRCtceCRx8u_bdRB5sCF-gtNIy2nDnDLAS3Q4mhnhl-c-n4MuhbSfT1HZy5VatE3P5alh-RVCaSONS5sJQDf8tZPsvc7mwPp4tadnazPvWHOUXBeKW1rLOp44tfT0RMHudeL",
+        Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
       },
     });
     const { items } = response.data;
@@ -28,27 +27,25 @@ const getSongs = async () => {
     );
 
     console.log(radioheadAlbums);
-    const discography = Object.values(radioheadAlbums).map(({ id, songs }) =>
-      (async () => {
-        try {
-          const fetchedSongs = await axios({
+    const songs = Object.values(radioheadAlbums).map(({ id, songs }) =>
+     {
+          const fetchedSongs =  axios({
             url: `https://api.spotify.com/v1/albums/${id}/tracks`,
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization:
-                "Bearer BQC3OcWrVc70k_TXlNCT6saF2aN3mQP2aDnOF3pTXwQGDA68qz9baeXFpUAXXeu7O696wxy0BH98FGSxDntrEtF1e4b9Zx-RbuJrbW5k8sksXaZgQ4kl36WL5fo3pYAQ54KGujxPqRCtceCRx8u_bdRB5sCF-gtNIy2nDnDLAS3Q4mhnhl-c-n4MuhbSfT1HZy5VatE3P5alh-RVCaSONS5sJQDf8tZPsvc7mwPp4tadnazPvWHOUXBeKW1rLOp44tfT0RMHudeL",
+              Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
             },
           });
           const { items } = fetchedSongs.data;
-          items.forEach((song) => songs.push(song.name));
-        } catch (e) {
-          console.log(e);
+          const songArray = items.forEach((song) => songs.push(song.name));
+          return songArray;
+       
         }
       })()
     );
-    console.log(discography);
-    return discography;
+    console.log(songs);
+    // return discography;
     // return radioheadAlbums;
   } catch (e) {
     console.log(e);

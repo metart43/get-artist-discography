@@ -2,28 +2,33 @@ const axios = require("axios");
 const fs = require("fs");
 
 const getToken = async () => {
-  const encodedSecret = Buffer.from(
-    process.env.SPOTIFY_CLIENT_SECRET,
-    "base64"
-  ).toString("base64");
-  console.log(encodedSecret);
-  try {
-    const response = await axios({
-      url: `https://accounts.spotify.com/api/token`,
-      method: "POST",
-      params: {
-        grant_type: "client_credentials",
-      },
-      headers: {
-        Authorization: `BASIC ${encodedSecret}`,
-      },
-    });
-    console.log(response.data);
-  } catch (e) {
-    console.log(e);
-    return null;
-  }
-};
+                               console.log(process.env.SPOTIFY_CLIENT_ID);
+                               console.log(process.env.SPOTIFY_CLIENT_SECRET);
+                               const encodedSecret = Buffer.from(
+                                 process.env.SPOTIFY_CLIENT_ID +
+                                   ":" +
+                                   process.env.SPOTIFY_CLIENT_SECRET
+                               ).toString("base64");
+                               console.log(
+                                 Buffer.from(encodedSecret, "base64").toString()
+                               );
+                               // try {
+                               //   const response = await axios({
+                               //     url: `https://accounts.spotify.com/api/token`,
+                               //     method: "POST",
+                               //     params: {
+                               //       grant_type: "client_credentials",
+                               //     },
+                               //     headers: {
+                               //       Authorization: `Basic  + ${encodedSecret}`,
+                               //     },
+                               //   });
+                               //   console.log(response.data);
+                               // } catch (e) {
+                               //   console.log(e);
+                               //   return null;
+                               // }
+                             };
 
 const matchSongs = async (id) => {
   try {

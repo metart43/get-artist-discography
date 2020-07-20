@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const Twitter = require("twitter-lite");
 const getAlbums = require("./getSongs");
+const getToken = require("./getToken");
 const fs = require("fs");
 
 const client = new Twitter({
@@ -16,6 +17,7 @@ app.use(express.static("public"));
 app.get("/", function (request, response) {
   (async () => {
     try {
+      await getToken();
       const lyrics = await getAlbums();
       // await client.post("statuses/update", {
       //   status: "status test",

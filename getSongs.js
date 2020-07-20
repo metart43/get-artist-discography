@@ -11,9 +11,9 @@ const matchSongs = async (id) => {
         Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
       },
     });
-    const { items } = response.data.items;
-    console.log(items);
-    return items;
+    const { items } = response.data;
+    const names = items.map((song) => song.name);
+    return names;
   } catch (e) {
     console.log(e);
     return null;
@@ -24,7 +24,7 @@ const getAlbums = async () => {
   try {
     const response = await axios({
       url:
-        "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=2",
+        "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=40",
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,6 @@ const getAlbums = async () => {
         },
       }))
     );
-    console.log();
     return radioheadAlbums;
   } catch (e) {
     console.log(e);

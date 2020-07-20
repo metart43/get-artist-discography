@@ -25,26 +25,20 @@ const getSongs = async () => {
         ])
       )
     );
-
+    Object.values(radioheadAlbums).map(({ id, songs }) => {
+      axios({
+        url: `https://api.spotify.com/v1/albums/${id}/tracks`,
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
+        },
+      }).then((res) => {
+        const { items } = res.data;
+        items.forEach((song) => {songs.push(song));
+      });
+    });
     console.log(radioheadAlbums);
-    const songs = Object.values(radioheadAlbums).map(({ id, songs }) =>
-     {
-          const fetchedSongs =  axios({
-            url: `https://api.spotify.com/v1/albums/${id}/tracks`,
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
-            },
-          });
-          const { items } = fetchedSongs.data;
-          const songArray = items.forEach((song) => songs.push(song.name));
-          return songArray;
-       
-        }
-      })()
-    );
-    console.log(songs);
     // return discography;
     // return radioheadAlbums;
   } catch (e) {

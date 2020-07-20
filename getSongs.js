@@ -31,23 +31,16 @@ const getAlbums = async () => {
         Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
       },
     });
-    console.log(response);
     const { items } = response.data;
     const radioheadAlbums = await Promise.all(
-      Object.fromEntries(
-        new Map(
-          items.map(async (album) => [
-            album.name,
-            {
-              id: album.id,
-              songs: [],
-              // songs: await matchSongs(album.id),
-            },
-          ])
-        )
-      )
+      items.map(async (album) => ({
+        [album.name]: {
+          id: album.id,
+          songs: await matchSongs(album.id),
+        },
+      }))
     );
-    console.log(radioheadAlbums);
+    return radioheadAlbums
   } catch (e) {
     console.log(e);
   }

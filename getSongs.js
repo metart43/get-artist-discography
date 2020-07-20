@@ -2,16 +2,19 @@ const axios = require("axios");
 const fs = require("fs");
 
 const getToken = async () => {
+  console.log(process.env.SPOTIFY_CLIENT_SECRET);
   try {
     const response = await axios({
       url: `https://accounts.spotify.com/api/token`,
       method: "POST",
+      params: {
+        grant_type: "client_credentials",
+      },
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `BASIC ${process.env.SPOTIFY_CLIENT_ID}`,
+        Authorization: `BASIC ${process.env.SPOTIFY_CLIENT_SECRET}`,
       },
     });
-    console.log(response);
+    console.log(response.data);
   } catch (e) {
     console.log(e);
     return null;
@@ -25,7 +28,6 @@ const matchSongs = async (id) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Grant-type": "client_credentials",
         Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
       },
     });

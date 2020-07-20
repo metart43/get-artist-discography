@@ -1,49 +1,28 @@
 const axios = require("axios");
 const fs = require("fs");
 
-  const matchSongsWithAlbums = async (albums) => {
-    const matchedObject = Object.values(albums).map(({ id, songs }) => {
-      axios({
-        url: `https://api.spotify.com/v1/albums/${id}/tracks`,
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
-        },
-      }).then((res) => {
-        const { items } = res.data;
-        items.forEach((song) => {
-          songs.push(song);
-        });
-      });
+const matchSongsWithAlbums = async (albums) => {
+  let songs;
+  Object.values(albums).map(({ id, songs }) => {
+    axios({
+      url: `https://api.spotify.com/v1/albums/${id}/tracks`,
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
+      },
+    }).then((res) => {
+      const { items } = res.data;
+      console.log("songs after then", items);
+      songs = items;
     });
+  });
+  console.log(songs);
 
-    try {
-     const response = Object.values(albums).map(({ id, songs }) => {
-        axios({
-          url: `https://api.spotify.com/v1/albums/${id}/tracks`,
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
-          },
-        }).then((res) => {
-          const { items } = res.data;
-          items.forEach((song) => {
-            songs.push(song);
-          });
-        });
-      });
-    }
-    catch(e){
-      console.log(e)
-      return null
-    }
-  return matchedObject
-  };
+  // return matchedObject
+};
 
 const getAlbums = async () => {
-  
   try {
     console.log("fetch albums");
     const response = await axios({
@@ -56,7 +35,7 @@ const getAlbums = async () => {
       },
     });
     const { items } = response.data;
-   const radioheadAlbums = Object.fromEntries(
+    const radioheadAlbums = Object.fromEntries(
       new Map(
         items.map((album) => [
           album.name,
@@ -67,14 +46,13 @@ const getAlbums = async () => {
         ])
       )
     );
-    matchSongsWithAlbums()
+    matchSongsWithAlbums(radioheadAlbums);
     // console.log(radioheadAlbums);
     // return discography;
   } catch (e) {
     console.log(e);
   }
 };
-
 
 const getLyrics = async () => {
   let lyrics;
@@ -103,4 +81,4 @@ const getLyrics = async () => {
     return (lyrics = null);
   }
 };
-module.exports = getSongs;
+module.exports = getAlbums;

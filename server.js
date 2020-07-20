@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const Twitter = require("twitter-lite");
 const getAlbums = require("./getSongs");
+const fs = require("fs");
 
 const client = new Twitter({
   consumer_key: process.env.TWITTER_API_KEY,
@@ -13,8 +14,6 @@ const client = new Twitter({
 app.use(express.static("public"));
 
 app.get("/", function (request, response) {
-  response.sendFile(__dirname + "/views/index.html");
-
   (async () => {
     try {
       const lyrics = await getAlbums();
@@ -22,8 +21,14 @@ app.get("/", function (request, response) {
       // await client.post("statuses/update", {
       //   status: "status test",
       // });
+      fs.writeFileSync(
+        __dirname + "/readiohead-albums-data.json",
+        JSON.stringify(lyrics)
+      );
     } catch (e) {
       console.log(e);
+    } finally {
+      response.sendFile(__dirname + "/readiohead-albums-data.json");
     }
   })();
 });

@@ -1,5 +1,6 @@
 <b>Response example:</b> 
-<code>[
+```
+[
   {
     "OK Computer OKNOTOK 1997 2017": {
       "id": "0",
@@ -28,6 +29,6 @@
       ]
     }
   }
-]</code>
-
+]
+```
 \ ゜o゜)ノ

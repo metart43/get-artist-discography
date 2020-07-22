@@ -4,7 +4,7 @@
   "//3": "updating this file will download and update your packages",
   "name": "bot4radioheead",
   "version": "0.0.1",
-  "description": "Radiohead Discography",
+  "description": "Radiohead Discography endpoint built for twitter bot",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

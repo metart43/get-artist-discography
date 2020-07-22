@@ -4,7 +4,6 @@ const getAlbums = require("./getSongs");
 const getToken = require("./getToken");
 const dotenv = require("dotenv");
 
-app.use(express.static("public"));
 dotenv.config();
 
 app.get("/", function (request, response) {

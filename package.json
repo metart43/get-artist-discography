@@ -1,16 +1,13 @@
 {
-  "//1": "describes your app and its dependencies",
-  "//2": "https://docs.npmjs.com/files/package.json",
-  "//3": "updating this file will download and update your packages",
-  "name": "bot4radioheead",
+  "name": "radiohead-discography",
   "version": "0.0.1",
-  "description": "Radiohead Discography endpoint built for twitter bot",
+  "description": "Package provides informatiojn about Radiohead's discography. Albums/Songs are fetched from Spotify API endpoints",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "axios": "0.19.2",
+    "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
   },

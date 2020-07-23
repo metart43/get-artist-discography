@@ -1,7 +1,7 @@
 {
   "name": "radiohead-discography",
   "version": "0.0.1",
-  "description": "Package provides informatiojn about Radiohead's discography. Albums/Songs are fetched from Spotify API endpoints",
+  "description": "Package provides information about Radiohead's discography. Albums/Songs are fetched from Spotify API endpoints",
   "main": "server.js",
   "scripts": {
     "start": "node server.js"

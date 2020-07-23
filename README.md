@@ -13,16 +13,16 @@ or
 <code>import getDiscography from "radiohead-discography/getDiscography";</code>
 </br>
 
-``` 
+```javascript
 const discography = getDiscography(artistID, limit);
-<b>artistID</b> =>  unqiue Spotify ID for the artist;
-<b>limit</b> => provide if you want limit the number of items for your request (min = 1; default = 20; max = 50);
+//artistID (required) =>  unqiue Spotify ID for the artist ;
+//limit (optional) => if you need to limit the number of items for your request (min = 1; default = 20; max = 50);
 ```
 
 You also will need to <a href="https://developer.spotify.com/dashboard/">sign up</a> and get Client ID and Client Secret.
 After you have both keys, add them to your <code>.env</code> file
 
-```
+```.env
 process.env.SPOTIFY_CLIENT_ID=<your-key>
 process.env.SPOTIFY_CLIENT_SECRET=<your-key>
 ```
@@ -30,7 +30,7 @@ process.env.SPOTIFY_CLIENT_SECRET=<your-key>
 <b>Response example:</b>
 Type: <code>Array of Objects</code>
 
-```
+```json
 [
   {
     "OK Computer OKNOTOK 1997 2017": {

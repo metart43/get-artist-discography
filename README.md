@@ -1,7 +1,25 @@
-<b>Radiohead Discography</b>
-NPM package was built to get Radiohead Full Discography; simplify and optimize response from Spotify API.
+<b>get-artist-discography</b>
+</br>
+NPM package built to get simplified response with full discography for the requested artist. Information is fetched from Spotify API.
+</br>
 <b>Usage</b>
+</br>
 <code>npm i radiohead-discography</code>
+</br>
+<code>const getDiscography = require("radiohead-discography/getDiscography");</code>
+</br>
+or
+</br>
+<code>import getDiscography from "radiohead-discography/getDiscography";</code>
+</br>
+You also will need to <a href="https://developer.spotify.com/dashboard/">sign up</a> and get Client ID and Client Secret.
+After you have both keys, add them to your <code>.env</code> file
+
+```
+process.env.SPOTIFY_CLIENT_ID=<your-key>
+process.env.SPOTIFY_CLIENT_SECRET=<your-key>
+```
+
 <b>Response example:</b>
 Type: <code>Array of Objects</code>
 

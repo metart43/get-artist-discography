@@ -4,7 +4,7 @@ NPM package built to get simplified response with full discography for the reque
 </br>
 <b>Usage</b>
 </br>
-<code>npm i radiohead-discography</code>
+<code>npm i get-artist-discography</code>
 </br>
 <code>const getDiscography = require("radiohead-discography/getDiscography");</code>
 </br>

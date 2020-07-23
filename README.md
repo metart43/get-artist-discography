@@ -1,6 +1,7 @@
 <b>Radiohead Discography</b>
 NPM package was built to get Radiohead Full Discography; simplify and optimize response from Spotify API.
-
+<b>Usage</b>
+<code>npm i radiohead-discography</code>
 <b>Response example:</b>
 Type: <code>Array of Objects</code>
 

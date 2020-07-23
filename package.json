@@ -1,18 +1,15 @@
 {
   "name": "radiohead-discography",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Package provides information about Radiohead's discography. Albums/Songs are fetched from Spotify API endpoints",
-  "main": "server.js",
-  "scripts": {
-    "start": "node server.js"
-  },
+  "main": "getDiscography.js",
   "dependencies": {
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1"
   },
   "engines": {
-    "node": "12.x"
+    "node": ">=12.0.0"
   },
   "repository": {
     "url": "https://github.com/metart43/radiohead_discography/"

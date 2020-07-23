@@ -1,13 +1,14 @@
 const axios = require("axios");
+const getToken = require("./getToken");
 
-const matchSongs = async (id) => {
+const matchSongs = async (id, token) => {
   try {
     const response = await axios({
       url: `https://api.spotify.com/v1/albums/${id}/tracks`,
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     const { items } = response.data;
@@ -21,30 +22,28 @@ const matchSongs = async (id) => {
   }
 };
 
-const getAlbums = async () => {
+const getDiscography = async (id, limit) => {
   try {
+    const token = await getToken();
     const response = await axios({
-      url:
-        "https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb/albums?limit=40",
+      url: `https://api.spotify.com/v1/artists/${id}/albums?limit=${limit}`,
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${process.env.SPOTIFY_TOKEN}`,
+        Authorization: `Bearer ${token}`,
       },
     });
     const { items } = response.data;
     const radioheadAlbums = await Promise.all(
-      items.map(
-        async ({ name, release_date, total_tracks, images, id }, i) => ({
-          [name]: {
-            id: `${i}`,
-            release_date,
-            images,
-            spotifyId: id,
-            songs: await matchSongs(id),
-          },
-        })
-      )
+      items.map(async ({ name, release_date, images, id }, i) => ({
+        [name]: {
+          id: `${i}`,
+          release_date,
+          images,
+          spotifyId: id,
+          songs: await matchSongs(id, token),
+        },
+      }))
     );
     return radioheadAlbums;
   } catch (e) {
@@ -55,4 +54,4 @@ const getAlbums = async () => {
   }
 };
 
-module.exports = getAlbums;
+module.exports = getDiscography;

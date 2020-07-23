@@ -17,7 +17,7 @@ const getToken = async () => {
       },
     });
     const { access_token } = response.data;
-    process.env["SPOTIFY_TOKEN"] = access_token;
+    return access_token;
   } catch (e) {
     const { status, statusText } = e.response
       ? e.response

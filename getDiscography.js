@@ -22,7 +22,7 @@ const matchSongs = async (id, token) => {
   }
 };
 
-const getDiscography = async (id, limit) => {
+const getDiscography = async (id, limit = 20) => {
   try {
     const token = await getToken();
     const response = await axios({

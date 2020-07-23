@@ -14,7 +14,9 @@ const matchSongs = async (id) => {
     const names = items.map((song) => song.name);
     return names;
   } catch (e) {
-    const { status, statusText } = e.response;
+    const { status, statusText } = e.response
+      ? e.response
+      : { status: "400", statusText: "Unknown error" };
     return { [status]: statusText };
   }
 };
@@ -32,17 +34,23 @@ const getAlbums = async () => {
     });
     const { items } = response.data;
     const radioheadAlbums = await Promise.all(
-      items.map(async (album, i) => ({
-        [album.name]: {
-          id: `${i}`,
-          spotifyId: album.id,
-          songs: await matchSongs(album.id),
-        },
-      }))
+      items.map(
+        async ({ name, release_date, total_tracks, images, id }, i) => ({
+          [name]: {
+            id: `${i}`,
+            release_date,
+            images,
+            spotifyId: id,
+            songs: await matchSongs(id),
+          },
+        })
+      )
     );
     return radioheadAlbums;
   } catch (e) {
-    const { status, statusText } = e.response;
+    const { status, statusText } = e.response
+      ? e.response
+      : { status: "400", statusText: "Unknown error" };
     return { [status]: statusText };
   }
 };

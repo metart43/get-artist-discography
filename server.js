@@ -13,7 +13,9 @@ app.get("/", function (request, response) {
       await getToken();
       lyrics = await getAlbums();
     } catch (e) {
-      const { status, statusText } = e.response;
+      const { status, statusText } = e.response
+        ? e.response
+        : { status: "400", statusText: "Unknown error" };
       lyrics = { [status]: statusText };
     } finally {
       response.send(JSON.stringify(lyrics));
@@ -21,6 +23,6 @@ app.get("/", function (request, response) {
   })();
 });
 
-const listener = app.listen(3000, function () {
+const listener = app.listen(process.env.PORT, function () {
   console.log("Your app is listening on port " + listener.address().port);
 });

@@ -1,4 +1,4 @@
-<b>get-artist-discography</b>
+<b>npm get-artist-discography</b>
 </br>
 NPM package built to get simplified response with full discography for the requested artist. Information is fetched from Spotify API.
 </br>
